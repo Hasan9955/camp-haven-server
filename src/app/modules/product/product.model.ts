@@ -8,7 +8,15 @@ const productSchema = new Schema<IProduct>({
         type: String,
         required: true
     },
+    sold: {
+        type: Number,
+        default: 0
+    },
     price: {
+        type: String,
+        required: true
+    },
+    photo: {
         type: String,
         required: true
     },

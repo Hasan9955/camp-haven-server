@@ -8,6 +8,7 @@ export interface IUser {
     address: string;
     phone: string;
     password: string; 
+    photo: string;
     role: 'admin' | 'user';
     isDeleted: boolean;
 }

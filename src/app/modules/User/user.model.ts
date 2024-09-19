@@ -27,10 +27,14 @@ const userSchema = new Schema<IUser>({
         select: 0,
         minLength: [6, 'password should be at last 6 character']
     },
+    photo: {
+        type: String,
+        default: 'https://i.ibb.co.com/5j6sv2R/anonymous2.webp'
+    },
     role: {
         type: String,
         enum: ['admin', 'user'],
-        required: true
+        default: 'user'
     },
     isDeleted: {
         type: Boolean,
