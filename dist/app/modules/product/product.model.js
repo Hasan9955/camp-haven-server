@@ -1,9 +1,8 @@
-import { model, Schema } from "mongoose";
-import { IProduct } from "./product.interface";
-
-
-
-const productSchema = new Schema<IProduct>({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Product = void 0;
+const mongoose_1 = require("mongoose");
+const productSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true
@@ -40,21 +39,15 @@ const productSchema = new Schema<IProduct>({
         type: String,
         default: 'available'
     }
-},
-    {
-        timestamps: true
-    });
-
-
+}, {
+    timestamps: true
+});
 productSchema.pre('find', function (next) {
-    this.find({ isDeleted: { $ne: true } })
+    this.find({ isDeleted: { $ne: true } });
     next();
-})
+});
 productSchema.pre('findOne', function (next) {
-    this.find({ isDeleted: { $ne: true } })
+    this.find({ isDeleted: { $ne: true } });
     next();
-})
-
-
-export const Product = model<IProduct>('Product', productSchema);
-
+});
+exports.Product = (0, mongoose_1.model)('Product', productSchema);

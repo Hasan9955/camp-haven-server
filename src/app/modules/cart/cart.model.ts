@@ -6,11 +6,13 @@ import { TCart } from "./cart.interface";
 const cartSchema = new Schema<TCart>({
     userId: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'User'
     },
     productId: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'Product'
     },
     quantity: {
         type: Number,

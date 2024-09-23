@@ -1,12 +1,18 @@
+import { IProduct } from "../product/product.interface";
 import { TCart } from "./cart.interface";
 import { Cart } from "./cart.model";
 
 
-const getProducts = async (payload: Partial<TCart>) => {
+const getProducts = async (id: string) => {
     const result = await Cart.find({
-        userId: payload.userId
+        userId: id
     })
-    return result;
+        .populate('userId')
+        .populate('productId')
+    if (result) {
+        const mappedProducts = result.filter((product) => product.productId != null) 
+        return mappedProducts;
+    }
 }
 const addProduct = async (payload: TCart) => {
     const isAlreadyProductAdded = await Cart.findOneAndUpdate({
@@ -20,13 +26,17 @@ const addProduct = async (payload: TCart) => {
             new: true,
             runValidators: true
         })
-    console.log(isAlreadyProductAdded);
-
+    if (!isAlreadyProductAdded) {
+        const result = await Cart.create(payload)
+        return result;
+    }
+    return isAlreadyProductAdded;
 
 }
 
 const deleteProduct = async (id: string) => {
-    const result = await Cart.findByIdAndDelete(id)
+    console.log(id);
+    const result = await Cart.deleteOne({ _id: id })
     return result;
 }
 

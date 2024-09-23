@@ -31,6 +31,7 @@ const deleteProduct = async (id: string) => {
         id,
         {
             isDeleted: true,
+            status: 'unavailable'
 
         },
         {

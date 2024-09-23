@@ -2,7 +2,8 @@ import catchAsync from "../../utils/catchAsync";
 import { cartServices } from "./cart.service";
 
 const getProducts = catchAsync(async(req, res) => {
-    const result = await cartServices.getProducts(req.body)
+    const id = req.params.id
+    const result = await cartServices.getProducts(id)
     res.status(200).json({
         success: true,
         status: 200,
@@ -32,12 +33,12 @@ const deleteProduct = catchAsync(async (req, res) => {
 
 const updateProduct = catchAsync(async (req, res) => {
     const id = req.params.id;
-    const payload = req.body;
+    const payload = req.body; 
     const result = await cartServices.updateProduct(id, payload)
     res.status(200).json({
         success: true,
         status: 200,
-        message: 'Product updated successfully!',
+        message: 'Item updated successfully!',
         data: result
     })
 
