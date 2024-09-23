@@ -12,8 +12,12 @@ const productSchema = new Schema<IProduct>({
         type: Number,
         default: 0
     },
+    category: {
+        type: String, 
+        required: true
+    },
     price: {
-        type: String,
+        type: Number,
         required: true
     },
     photo: {

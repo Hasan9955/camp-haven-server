@@ -6,12 +6,13 @@ export interface IProduct {
     _id: Types.ObjectId;
     name: string;
     description: string;
-    price: string;
+    price: number;
     quantity: number;
     photo: string;
     sold: number;
     status: 'available' | 'unavailable';
     isDeleted: boolean;
     brand: string;
+    category: string;
 
 }
