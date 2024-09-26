@@ -2,11 +2,11 @@ import { FilterQuery } from "mongoose";
 import { IProduct } from "./product.interface";
 import { Product } from "./product.model"
 interface ProductQuery {
-    search?: string;
+    filter?: string;
     category?: string;
     minPrice?: number;
     maxPrice?: number;
-    sortByPrice?: 'asc' | 'desc';
+    sort?: 'asc' | 'desc';
 }
 
 
@@ -23,13 +23,13 @@ const getAllProducts = async (query: ProductQuery) => {
     const filter: FilterQuery<IProduct> = {};
 
     // Search by name or description if provided
-    if (query.search) {
+    if (query.filter) {
         filter.$or = [
-            { name: { $regex: query.search, $options: 'i' } }, 
-            { description: { $regex: query.search, $options: 'i' } } 
+            { name: { $regex: query.filter, $options: 'i' } },
+            { description: { $regex: query.filter, $options: 'i' } }
         ];
     }
-    
+
     // Filter by category if provided
     if (query.category) {
         filter.category = query.category;
@@ -45,15 +45,15 @@ const getAllProducts = async (query: ProductQuery) => {
             filter.price.$lte = query.maxPrice;
         }
     }
-    
-    
+
+
     // Sort functionality
     let sort: Record<string, 1 | -1> = {};
-    if (query.sortByPrice) {
-        sort.price = query.sortByPrice === 'asc' ? 1 : -1;
+    if (query.sort) {
+        sort.price = query.sort === 'asc' ? 1 : -1;
     }
 
-    console.log(filter); 
+
     const result = await Product.find(filter).sort(sort);
     return result;
 }
@@ -63,6 +63,19 @@ const getSingleProduct = async (id: string) => {
     const result = await Product.findById(id);
     return result;
 }
+
+
+const getTopSoldProduct = async () => {
+    const result = await Product.find().sort({ sold: -1 }).limit(4)
+    return result;
+}
+
+const getRecommendedProduct = async () => {
+    const result = await Product.find();
+    return result;
+}
+
+
 const updateProduct = async (id: string, payload: Partial<IProduct>) => {
     const result = await Product.findByIdAndUpdate(
         id,
@@ -95,6 +108,8 @@ export const productServices = {
     createProduct,
     getAllProducts,
     getSingleProduct,
+    getTopSoldProduct,
+    getRecommendedProduct,
     updateProduct,
     deleteProduct
 }

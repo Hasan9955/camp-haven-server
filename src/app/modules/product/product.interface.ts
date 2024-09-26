@@ -14,5 +14,6 @@ export interface IProduct {
     isDeleted: boolean;
     brand: string;
     category: string;
+    isRecommended: boolean;
 
 }

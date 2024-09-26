@@ -11,8 +11,12 @@ const productSchema = new mongoose_1.Schema({
         type: Number,
         default: 0
     },
-    price: {
+    category: {
         type: String,
+        required: true
+    },
+    price: {
+        type: Number,
         required: true
     },
     photo: {
@@ -28,6 +32,10 @@ const productSchema = new mongoose_1.Schema({
         required: true
     },
     isDeleted: {
+        type: Boolean,
+        default: false
+    },
+    isRecommended: {
         type: Boolean,
         default: false
     },

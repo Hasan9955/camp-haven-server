@@ -36,6 +36,10 @@ const productSchema = new Schema<IProduct>({
         type: Boolean,
         default: false
     },
+    isRecommended: {
+        type: Boolean,
+        default: false
+    },
     quantity: {
         type: Number,
         required: true

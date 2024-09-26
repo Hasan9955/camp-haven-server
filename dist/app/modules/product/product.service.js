@@ -15,12 +15,48 @@ const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* (
     const result = yield product_model_1.Product.create(payload);
     return result;
 });
-const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.Product.find();
+const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    //Filter Functionality
+    const filter = {};
+    // Search by name or description if provided
+    if (query.filter) {
+        filter.$or = [
+            { name: { $regex: query.filter, $options: 'i' } },
+            { description: { $regex: query.filter, $options: 'i' } }
+        ];
+    }
+    // Filter by category if provided
+    if (query.category) {
+        filter.category = query.category;
+    }
+    // Filter by price range if provided
+    if (query.minPrice || query.maxPrice) {
+        filter.price = {};
+        if (query.minPrice) {
+            filter.price.$gte = query.minPrice;
+        }
+        if (query.maxPrice) {
+            filter.price.$lte = query.maxPrice;
+        }
+    }
+    // Sort functionality
+    let sort = {};
+    if (query.sort) {
+        sort.price = query.sort === 'asc' ? 1 : -1;
+    }
+    const result = yield product_model_1.Product.find(filter).sort(sort);
     return result;
 });
 const getSingleProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.Product.findById(id);
+    return result;
+});
+const getTopSoldProduct = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.Product.find().sort({ sold: -1 }).limit(4);
+    return result;
+});
+const getRecommendedProduct = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.Product.find();
     return result;
 });
 const updateProduct = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,6 +80,8 @@ exports.productServices = {
     createProduct,
     getAllProducts,
     getSingleProduct,
+    getTopSoldProduct,
+    getRecommendedProduct,
     updateProduct,
     deleteProduct
 };

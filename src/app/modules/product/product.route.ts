@@ -8,6 +8,10 @@ const router = Router();
 
 router.get('/', productControllers.getAllProducts)
 
+router.get('/topSoldProducts', productControllers.getTopSoldProduct)
+
+router.get('/recommendedProducts', productControllers.getRecommendedProduct)
+
 router.get('/:id', productControllers.getSingleProduct)
 
 router.post('/', productControllers.createProduct)

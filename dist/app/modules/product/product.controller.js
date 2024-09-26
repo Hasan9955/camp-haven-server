@@ -26,11 +26,29 @@ const createProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     });
 }));
 const getAllProducts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_service_1.productServices.getAllProducts();
+    const result = yield product_service_1.productServices.getAllProducts(req.query);
     res.status(200).json({
         success: true,
         status: 200,
         message: 'Products retrieved successfully!',
+        data: result
+    });
+}));
+const getTopSoldProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.productServices.getTopSoldProduct();
+    res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Top sold Products retrieved successfully!',
+        data: result
+    });
+}));
+const getRecommendedProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.productServices.getRecommendedProduct();
+    res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Recommended Products retrieved successfully!',
         data: result
     });
 }));
@@ -67,6 +85,8 @@ exports.productControllers = {
     createProduct,
     getAllProducts,
     getSingleProduct,
+    getTopSoldProduct,
+    getRecommendedProduct,
     updateProduct,
     deleteProduct
 };

@@ -22,6 +22,26 @@ const getAllProducts = catchAsync(async (req, res) => {
         data: result
     })
 })
+
+const getTopSoldProduct = catchAsync(async(req, res) => {
+    const result = await productServices.getTopSoldProduct();
+    res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Top sold Products retrieved successfully!',
+        data: result
+    })
+})
+
+const getRecommendedProduct = catchAsync(async(req, res) => {
+    const result = await productServices.getRecommendedProduct();
+    res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Recommended Products retrieved successfully!',
+        data: result
+    })
+})
 const getSingleProduct = catchAsync(async (req, res) => {
     const result = await productServices.getSingleProduct(req.params.id)
     res.status(200).json({
@@ -57,6 +77,8 @@ export const productControllers = {
     createProduct,
     getAllProducts,
     getSingleProduct,
+    getTopSoldProduct,
+    getRecommendedProduct,
     updateProduct,
     deleteProduct
 }
