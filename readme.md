@@ -1,5 +1,5 @@
 # Camp Haven Server
-## Link: https://camp-haven-server.vercel.app/api/v1
+## Link: https://camp-haven-server.vercel.app/
 This is the backend server for **Camp Haven**, an e-commerce platform focused on camping products. The server handles all API requests, product data management, user authentication, and interaction with the MongoDB database.
 
 ## Features
